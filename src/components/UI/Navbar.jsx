@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 const Navbar = () => {
   return (
     <div className='navbar bg-base-100'>
@@ -7,7 +9,7 @@ const Navbar = () => {
       <div className='flex-none'>
         <ul className='menu menu-horizontal px-1'>
           <li>
-            <a>Link</a>
+            <NavLink to='/login'>Page 1</NavLink>
           </li>
           <li>
             <details>

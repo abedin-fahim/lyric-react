@@ -1,7 +1,11 @@
-import Navbar from '../components/UI/Navbar';
+import Tracks from '../components/tracks/Tracks';
 
 const HomePage = () => {
-  return <h1>Hello world</h1>;
+  return (
+    <div className='container mx-auto px-24'>
+      <Tracks />
+    </div>
+  );
 };
 
 export default HomePage;
