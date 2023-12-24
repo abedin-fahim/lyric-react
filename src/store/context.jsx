@@ -3,18 +3,19 @@ import React, { useContext, useState } from 'react';
 export const AppContext = React.createContext();
 
 export const AppProvider = (props) => {
-  const [trackList, setTrackList] = useState([
-    {
-      track: { track_name: 'abc' },
-    },
-    {
-      track: { track_name: 'abc 2' },
-    },
-  ]);
+  const [trackList, setTrackList] = useState([]);
   const [heading, setHeading] = useState('Top 10 tracks');
+
+  const trackListHandler = (tracks) => {
+    setTrackList(tracks);
+  };
+  const headingHandler = (heading) => {
+    setHeading(heading);
+  };
+
   return (
     <AppContext.Provider
-      value={{ trackList, setTrackList, heading, setHeading }}
+      value={{ trackList, trackListHandler, heading, headingHandler }}
     >
       {props.children}
     </AppContext.Provider>
