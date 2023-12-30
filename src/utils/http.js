@@ -1,12 +1,13 @@
 let CORE_DOMAIN = import.meta.env.VITE_LYRIC_CORE_DOMAIN;
 let API_KEY = import.meta.env.VITE_LYRIC_API_KEY;
+let CORE_URL = import.meta.env.VITE_LYRIC_CORE_URL;
 
-export const fetchTracks = async () => {
+export const fetchTracks = async ({ signal }) => {
   try {
     const response = await fetch(
-      `${CORE_DOMAIN}chart.tracks.get?chart_name=top&page=1&page_size=5&country=it&f_has_lyrics=1&apikey=${API_KEY}`,
+      `${CORE_URL}/${CORE_DOMAIN}chart.tracks.get?chart_name=top&page=1&page_size=5&country=it&f_has_lyrics=1&apikey=${API_KEY}`,
       {
-        mode: 'no-cors',
+        signal,
       }
     );
 

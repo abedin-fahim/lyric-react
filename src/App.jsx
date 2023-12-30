@@ -17,7 +17,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        // loader: homeLoader,
+        loader: homeLoader,
       },
     ],
   },
