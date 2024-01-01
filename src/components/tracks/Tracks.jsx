@@ -3,21 +3,21 @@ import { useLoaderData } from 'react-router-dom';
 import { useGlobalContext } from '../../store/context';
 
 const Tracks = () => {
-  const tracks = useLoaderData();
   const { heading, trackList, trackListHandler } = useGlobalContext();
+  const tracks = useLoaderData();
+
   let updatedTracks = tracks.message.body.track_list;
 
   useEffect(() => {
     trackListHandler(updatedTracks);
   }, [tracks, trackListHandler, trackList]);
 
-  const trackItems = trackList.map((track, idx) => <li key={idx}>{track}</li>);
-  console.log(trackItems);
-
   return (
     <>
       <h1>{heading}</h1>
-      {trackList && <p>Hello, world</p>}
+      {updatedTracks.map((item) => (
+        <li key={item.track.track_id}>{item.track.track_name}</li>
+      ))}
     </>
   );
 };
