@@ -4,7 +4,7 @@ export const AppContext = React.createContext();
 
 export const AppProvider = (props) => {
   const [trackList, setTrackList] = useState([]);
-  const [heading, setHeading] = useState('Top 10 tracks');
+  const [heading, setHeading] = useState('Top 12 tracks');
 
   const trackListHandler = (tracks) => {
     setTrackList(tracks);

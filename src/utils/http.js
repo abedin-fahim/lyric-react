@@ -7,7 +7,7 @@ let CORE_URL = import.meta.env.VITE_LYRIC_CORE_URL;
 export const fetchTracks = async ({ signal }) => {
   try {
     const response = await fetch(
-      `${CORE_URL}/${CORE_DOMAIN}/chart.tracks.get?chart_name=top&page=1&page_size=10&country=us&f_has_lyrics=1&apikey=${API_KEY}`,
+      `${CORE_URL}/${CORE_DOMAIN}/chart.tracks.get?chart_name=top&page=1&page_size=12&country=us&f_has_lyrics=1&apikey=${API_KEY}`,
       {
         signal,
       }
