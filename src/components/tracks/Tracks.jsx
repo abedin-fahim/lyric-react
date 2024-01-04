@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { useGlobalContext } from '../../store/context';
+import { generateColor, getColor } from '../../utils/generateColors';
 
 import Spinner from '../UI/Spinner';
 
@@ -16,19 +17,12 @@ const Tracks = () => {
     trackListHandler(track_list);
   }, [tracks]);
 
-  console.log(trackList);
+  // console.log(
+  //   track_list[0].track.primary_genres.music_genre_list[0]
+  //   // .music_genre.music_genre_name
+  // );
 
-  let colorSlider = 0;
-  let colors = ['primary', 'secondary', 'info', 'success'];
-  let currentColor = colors[colorSlider];
-
-  const updateColors = () => {
-    colorSlider += 1;
-    if (colorSlider === colors.length) {
-      colorSlider = 0;
-    }
-    return colors[colorSlider];
-  };
+  // console.log(trackList);
 
   return (
     <>
@@ -38,23 +32,46 @@ const Tracks = () => {
         trackList.map((item) => (
           <li key={item.track.track_id}>
             <div
-              className={`card w-96 bg-${updateColors()} text-${currentColor}-content shadow-xl`}
+              className={`card w-96 bg-${generateColor()} text-${getColor()}-content relative shadow-xl`}
             >
               <div className='card-body'>
-                <h2 className={`card-title text-${currentColor}-content`}>
+                <div
+                  className={`bg-[url('/images/floating-cogs.svg')] absolute top-12 rotate-90 opacity-10 right-8 h-48 w-36`}
+                ></div>
+                <h2 className={`card-title text-white`}>
                   {item.track.track_name}
-                  <div className={`badge badge-neutral`}>
-                    {item.track.track_rating}
-                  </div>
-                  <div className='badge badge-error'>Explicit</div>
+                  {item.track.explicit === 0 ? null : (
+                    <div className='badge badge-error'>Explicit</div>
+                  )}
                 </h2>
-                <p>{item.track.artist_name}</p>
-                <div className='card-actions justify-center'>
+                <h6 className={`text-${getColor()}-content`}>
+                  {item.track.artist_name}
+                </h6>
+                <div className='flex items-center'>
+                  <div>
+                    {item.track.primary_genres.music_genre_list.length >= 1 && (
+                      <div className='badge badge-ghost mr-2'>
+                        {
+                          item.track.primary_genres.music_genre_list[0]
+                            ?.music_genre.music_genre_name
+                        }
+                      </div>
+                    )}
+                  </div>
+                  <div className={`badge badge-neutral`}>
+                    {item.track.track_rating / 10}
+                  </div>
+                </div>
+                <p
+                  className={`text-${getColor()}-content font-bold badge badge-ghost badge-outline mt-2 text-white`}
+                >
+                  {item.track.album_name}
+                </p>
+                <div className='card-actions justify-start'>
                   <button className='btn'>View Lyric</button>
                 </div>
               </div>
             </div>
-            ({item.track.album_name})
           </li>
         ))
       )}

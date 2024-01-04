@@ -13,7 +13,6 @@ export const fetchTracks = async ({ signal }) => {
       }
     );
     const data = await response.json();
-
     return data;
   } catch (error) {
     return json(
@@ -35,12 +34,8 @@ export const fetchTrack = async ({ signal, id }) => {
     return data;
   } catch (error) {
     return json(
-      {
-        msg: 'Sorry, we could not get the song lyric' + error,
-      },
-      {
-        status: 500,
-      }
+      { msg: 'Sorry, we could not get the song lyric' + error },
+      { status: 500 }
     );
   }
 };
