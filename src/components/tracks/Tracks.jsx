@@ -36,7 +36,7 @@ const Tracks = () => {
             >
               <div className='card-body'>
                 <div
-                  className={`bg-[url('/images/floating-cogs.svg')] absolute top-12 rotate-90 opacity-10 right-8 h-48 w-36`}
+                  className={`bg-[url('/images/floating-cogs.svg')] absolute top-12 rotate-90 opacity-10 right-8 h-48 w-36 rounded-md`}
                 ></div>
                 <h2 className={`card-title text-white`}>
                   {item.track.track_name}
