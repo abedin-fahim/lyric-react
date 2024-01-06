@@ -6,6 +6,7 @@ import Tracks from '../components/tracks/Tracks';
 
 const HomePage = () => {
   const { heading } = useGlobalContext();
+
   return (
     <>
       <div className='container mx-auto'>
@@ -18,6 +19,7 @@ const HomePage = () => {
           <Tracks />
         </div>
       </div>
+      )
     </>
   );
 };

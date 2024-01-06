@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigation } from 'react-router-dom';
 import { useGlobalContext } from '../../store/context';
 import { generateColor, getColor } from '../../utils/generateColors';
 
@@ -7,7 +7,10 @@ import Spinner from '../UI/Spinner';
 
 const Tracks = () => {
   const { trackList, trackListHandler } = useGlobalContext();
+  const { state } = useNavigation();
+  
   const tracks = useLoaderData();
+  let isNavigating = state === 'loading' ? true : false;
 
   let { track_list } = tracks.message.body;
   let isLoading =
@@ -17,15 +20,9 @@ const Tracks = () => {
     trackListHandler(track_list);
   }, [tracks]);
 
-  // console.log(
-  //   track_list[0].track.primary_genres.music_genre_list[0]
-  //   // .music_genre.music_genre_name
-  // );
-
-  // console.log(trackList);
-
   return (
     <>
+      {isNavigating && <Spinner />}
       {isLoading ? (
         <Spinner />
       ) : (
@@ -41,12 +38,10 @@ const Tracks = () => {
                 <h2 className={`card-title text-white`}>
                   {item.track.track_name}
                   {item.track.explicit === 0 ? null : (
-                    <div className='badge badge-error'>Explicit</div>
+                    <div className='badge badge-error'>EL</div>
                   )}
                 </h2>
-                <h6 className={`text-${getColor()}-content`}>
-                  {item.track.artist_name}
-                </h6>
+                <h6 className={`text-white`}>{item.track.artist_name}</h6>
                 <div className='flex items-center'>
                   <div>
                     {item.track.primary_genres.music_genre_list.length >= 1 && (
@@ -68,7 +63,13 @@ const Tracks = () => {
                   {item.track.album_name}
                 </p>
                 <div className='card-actions justify-start'>
-                  <button className='btn'>View Lyric</button>
+                  {/* <button className='btn'>View Lyric</button> */}
+                  <Link
+                    to={`tracks/${item.track.track_id}`}
+                    className='btn'
+                  >
+                    View Lyric
+                  </Link>
                 </div>
               </div>
             </div>

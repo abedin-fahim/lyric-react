@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         loader: homeLoader,
       },
       {
-        path: '/tracks/:trackId',
+        path: 'tracks/:trackId',
         element: <TrackPage />,
         loader: trackLoader,
       },
