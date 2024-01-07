@@ -7,17 +7,14 @@ const TrackItem = () => {
 
   let isNavigating = state === 'loading' ? true : false;
 
-  console.log(track);
+  // console.log(track.message.body.lyrics.lyrics_body);
 
   return (
     <>
       {isNavigating && <Spinner />}
-      <div className='columns-3 md:columns-2'>
-        <div>
-          <h5>Hello there</h5>
-        </div>
-        <div>
-          <h3>Hello, world</h3>
+      <div className='columns-3'>
+        <div className='card shadow-xl'>
+          <p>{track.message.body.lyrics.lyrics_body}</p>
         </div>
       </div>
     </>
