@@ -5,10 +5,14 @@ import { generateColor, getColor } from '../../utils/generateColors';
 
 import Spinner from '../UI/Spinner';
 
+//? An improvement?
+// Add an event handler to listen
+// and pass that specific track details to the global context and use it in the lyric page with the fetched lyric
+
 const Tracks = () => {
   const { trackList, trackListHandler } = useGlobalContext();
   const { state } = useNavigation();
-  
+
   const tracks = useLoaderData();
   let isNavigating = state === 'loading' ? true : false;
 
