@@ -4,7 +4,8 @@ export const AppContext = React.createContext();
 
 export const AppProvider = (props) => {
   const [trackList, setTrackList] = useState([]);
-  const [heading, setHeading] = useState('Top 12 tracks');
+  const [selectedTrack, setSelectedTrack] = useState({});
+  const [heading, setHeading] = useState('Top 12 tracks in the US');
 
   const trackListHandler = (tracks) => {
     setTrackList(tracks);
@@ -12,10 +13,20 @@ export const AppProvider = (props) => {
   const headingHandler = (heading) => {
     setHeading(heading);
   };
+  const selectedTrackHandler = (track) => {
+    setSelectedTrack(track);
+  };
 
   return (
     <AppContext.Provider
-      value={{ trackList, trackListHandler, heading, headingHandler }}
+      value={{
+        trackList,
+        trackListHandler,
+        selectedTrack,
+        selectedTrackHandler,
+        heading,
+        headingHandler,
+      }}
     >
       {props.children}
     </AppContext.Provider>

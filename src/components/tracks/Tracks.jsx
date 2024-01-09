@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useLoaderData, useNavigation } from 'react-router-dom';
 import { useGlobalContext } from '../../store/context';
 import { generateColor, getColor } from '../../utils/generateColors';
+import {
+  BsArrowRightCircleFill,
+  BsDiscFill,
+  BsMusicNote,
+  BsStarFill,
+} from 'react-icons/bs';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 import Spinner from '../UI/Spinner';
 
-//? An improvement?
-// Add an event handler to listen
-// and pass that specific track details to the global context and use it in the lyric page with the fetched lyric
-
 const Tracks = () => {
-  const { trackList, trackListHandler } = useGlobalContext();
+  const { trackList, trackListHandler, selectedTrackHandler } =
+    useGlobalContext();
   const { state } = useNavigation();
 
   const tracks = useLoaderData();
@@ -42,14 +46,22 @@ const Tracks = () => {
                 <h2 className={`card-title text-white`}>
                   {item.track.track_name}
                   {item.track.explicit === 0 ? null : (
-                    <div className='badge badge-error'>EL</div>
+                    <div
+                      className='tooltip'
+                      data-tip='Language warning'
+                    >
+                      <div className='badge badge-warning rounded-full p-1'>
+                        <RiErrorWarningLine />
+                      </div>
+                    </div>
                   )}
                 </h2>
                 <h6 className={`text-white`}>{item.track.artist_name}</h6>
                 <div className='flex items-center'>
                   <div>
                     {item.track.primary_genres.music_genre_list.length >= 1 && (
-                      <div className='badge badge-ghost mr-2'>
+                      <div className='badge gap-2 badge-ghost mr-2'>
+                        <BsMusicNote />
                         {
                           item.track.primary_genres.music_genre_list[0]
                             ?.music_genre.music_genre_name
@@ -57,21 +69,25 @@ const Tracks = () => {
                       </div>
                     )}
                   </div>
-                  <div className={`badge badge-neutral`}>
-                    {item.track.track_rating / 10}
+                  <div className={`badge badge-neutral gap-2`}>
+                    <BsStarFill /> {item.track.track_rating / 10}
                   </div>
                 </div>
                 <div
-                  className={`text-${getColor()}-content font-bold badge badge-ghost block h-auto badge-outline my-2 text-white`}
+                  className={`text-${getColor()}-content font-bold badge badge-ghost flex gap-2 items-center justify-start h-auto badge-outline my-2 text-white`}
                 >
-                  {item.track.album_name}
+                  <BsDiscFill /> {item.track.album_name}
                 </div>
                 <div className='card-actions justify-start'>
                   <Link
+                    onClick={() => {
+                      selectedTrackHandler(item.track);
+                    }}
                     to={`tracks/${item.track.track_id}`}
                     className='btn'
                   >
                     View Lyric
+                    <BsArrowRightCircleFill />
                   </Link>
                 </div>
               </div>
