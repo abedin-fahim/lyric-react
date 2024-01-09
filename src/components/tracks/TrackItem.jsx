@@ -12,8 +12,11 @@ const TrackItem = () => {
   return (
     <>
       {isNavigating && <Spinner />}
-      <div className='columns-3'>
-        <div className='card shadow-xl'>
+      <div className='flex flex-row gap-16'>
+        <div className='basis-1/3 card shadow-xl'>
+          <h1>Track details goes here</h1>
+        </div>
+        <div className='basis-1/2'>
           <p>{track.message.body.lyrics.lyrics_body}</p>
         </div>
       </div>

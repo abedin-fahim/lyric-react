@@ -33,7 +33,7 @@ const Tracks = () => {
         trackList.map((item) => (
           <li key={item.track.track_id}>
             <div
-              className={`card w-96 bg-${generateColor()} text-${getColor()}-content relative shadow-xl`}
+              className={`card w-96 ${generateColor()} text-white relative shadow-xl`}
             >
               <div className='card-body'>
                 <div
@@ -61,13 +61,12 @@ const Tracks = () => {
                     {item.track.track_rating / 10}
                   </div>
                 </div>
-                <p
-                  className={`text-${getColor()}-content font-bold badge badge-ghost badge-outline mt-2 text-white`}
+                <div
+                  className={`text-${getColor()}-content font-bold badge badge-ghost block h-auto badge-outline my-2 text-white`}
                 >
                   {item.track.album_name}
-                </p>
+                </div>
                 <div className='card-actions justify-start'>
-                  {/* <button className='btn'>View Lyric</button> */}
                   <Link
                     to={`tracks/${item.track.track_id}`}
                     className='btn'
