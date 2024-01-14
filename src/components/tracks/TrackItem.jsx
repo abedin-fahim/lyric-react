@@ -1,15 +1,17 @@
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../../store/context';
 import { BsDiscFill, BsMusicNote, BsStarFill } from 'react-icons/bs';
 import { RiErrorWarningLine } from 'react-icons/ri';
-import { getColor, generateColor } from '../../utils/generateColors';
+import { useQuery } from '@tanstack/react-query';
 
 import Spinner from '../UI/Spinner';
+import { getColor, generateColor } from '../../utils/generateColors';
 
 const TrackItem = () => {
   const { state } = useNavigation();
-  const { selectedTrack } = useGlobalContext();
+  let { selectedTrack } = useGlobalContext();
   const track = useLoaderData();
+  const { trackId } = useParams();
 
   // console.log(selectedTrack);
   // console.log(selectedTrack.primary_genres);
@@ -18,6 +20,14 @@ const TrackItem = () => {
 
   const lyric = track.message.body.lyrics.lyrics_body.split('...');
   const updatedLyric = lyric[0].split('\n');
+  console.log(track);
+
+  // On a second thought, instead of using global ctx, I could simply use useParams to fetch the track details,
+  // Or fetch both the lyric and the track details while working with loader.
+  // const [data, isLoading] = useQuery({
+  //   queryKey: ['selected', 'track', 'tracks'],
+  //   queryFn: () => {},
+  // });
 
   return (
     <>
@@ -30,7 +40,7 @@ const TrackItem = () => {
             >
               <div className='card-body'>
                 <div
-                  className={`bg-[url('/images/floating-cogs.svg')] absolute top-12 rotate-90 opacity-10 right-8 h-48 w-36 rounded-md`}
+                  className={`bg-[url('/images/floating-cogs.svg')] absolute top-8 rotate-90 opacity-10 right-8 h-48 w-36 rounded-md`}
                 ></div>
                 <h2 className={`card-title text-white`}>
                   {selectedTrack.track_name}
@@ -48,7 +58,7 @@ const TrackItem = () => {
                 <h6 className={`text-white`}>{selectedTrack.artist_name}</h6>
                 <div className='flex items-center'>
                   <div>
-                    {selectedTrack.primary_genres.music_genre_list.length >=
+                    {selectedTrack?.primary_genres?.music_genre_list?.length >=
                       1 && (
                       <div className='badge gap-2 badge-ghost mr-2'>
                         <BsMusicNote />
@@ -74,14 +84,14 @@ const TrackItem = () => {
         </div>
         <div className='basis-2/3'>
           {/* <p>{track.message.body.lyrics.lyrics_body}</p> */}
-          <div
-            className={`card ${getColor()} text-white relative shadow-xl`}
+          <li
+            className={`card ${getColor()} text-center relative shadow-xl`}
             key={Math.random()}
           >
             {updatedLyric.map((lyric) => (
-              <p color='text-black'>{lyric}</p>
+              <p className='text-white'>{lyric}</p>
             ))}
-          </div>
+          </li>
         </div>
       </div>
     </>
