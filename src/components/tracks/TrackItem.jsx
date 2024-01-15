@@ -84,14 +84,16 @@ const TrackItem = () => {
         </div>
         <div className='basis-2/3'>
           {/* <p>{track.message.body.lyrics.lyrics_body}</p> */}
-          <li
-            className={`card ${getColor()} text-center relative shadow-xl`}
-            key={Math.random()}
-          >
+          <div className={`card ${getColor()} text-center relative shadow-xl`}>
             {updatedLyric.map((lyric) => (
-              <p className='text-white'>{lyric}</p>
+              <li
+                key={Math.random()}
+                className='text-white'
+              >
+                {lyric}
+              </li>
             ))}
-          </li>
+          </div>
         </div>
       </div>
     </>
