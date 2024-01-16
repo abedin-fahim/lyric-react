@@ -1,7 +1,7 @@
 import { useNavigation } from 'react-router-dom';
 import { queryClient } from '../App';
 import TrackItem from '../components/tracks/TrackItem';
-import { fetchTrack } from '../utils/http';
+import { fetchTrackLyric } from '../utils/http';
 import Spinner from '../components/UI/Spinner';
 
 const Track = () => {
@@ -25,6 +25,6 @@ export const loader = ({ params }) => {
   // console.log(trackId);
   return queryClient.fetchQuery({
     queryKey: ['tracks', trackId],
-    queryFn: ({ signal }) => fetchTrack({ signal, id: trackId }),
+    queryFn: ({ signal }) => fetchTrackLyric({ signal, id: trackId }),
   });
 };

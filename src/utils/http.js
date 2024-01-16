@@ -22,7 +22,7 @@ export const fetchTracks = async ({ signal }) => {
   }
 };
 
-export const fetchTrack = async ({ signal, id }) => {
+export const fetchTrackLyric = async ({ signal, id }) => {
   try {
     const response = await fetch(
       `${CORE_URL}/${CORE_DOMAIN}/track.lyrics.get?track_id=${id}&apikey=${API_KEY}`,
@@ -35,6 +35,24 @@ export const fetchTrack = async ({ signal, id }) => {
   } catch (error) {
     return json(
       { msg: 'Sorry, we could not get the song lyric' + error },
+      { status: 500 }
+    );
+  }
+};
+
+export const fetchTrack = async ({ signal, id }) => {
+  try {
+    const response = await fetch(
+      `${CORE_URL}/${CORE_DOMAIN}/track.get?commontrack_id=${id}`,
+      {
+        signal,
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return json(
+      { msg: `Sorry, we could not get the song details ${error}` },
       { status: 500 }
     );
   }
