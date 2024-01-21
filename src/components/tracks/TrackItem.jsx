@@ -2,16 +2,18 @@ import { useEffect } from 'react';
 import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { RiErrorWarningLine } from 'react-icons/ri';
-import { CiEdit } from 'react-icons/ci';
-import { BsDiscFill, BsMusicNote, BsStarFill, BsQuote } from 'react-icons/bs';
-
 import Spinner from '../UI/Spinner';
 import { useGlobalContext } from '../../store/context';
 import { getColor, generateColor } from '../../utils/generateColors';
 import { fetchTrack } from '../../utils/http';
 
+import { RiErrorWarningLine } from 'react-icons/ri';
+import { CiEdit } from 'react-icons/ci';
+import { BsDiscFill, BsMusicNote, BsStarFill, BsQuote } from 'react-icons/bs';
+
 const TrackItem = () => {
+  const EXPLICIT_WARNING_THRESHOLD = 0;
+
   const { trackId } = useParams();
   const { state } = useNavigation();
   const track = useLoaderData();
@@ -46,7 +48,7 @@ const TrackItem = () => {
       if (Object.entries(localSelectedTrack).length !== 0) {
         if (trackId === localSelectedTrack.track_id.toString()) {
           selectedTrackHandler(localSelectedTrack);
-          console.log(localSelectedTrack);
+          // console.log(localSelectedTrack);
         }
       } else {
         // Should never come here, unless it's a nerd
@@ -56,7 +58,7 @@ const TrackItem = () => {
   }, [selectedTrack]);
 
   const fetchSelectedTrackDetails = () => {
-    const [data] = useQuery({
+    const [data, isError, isLoading] = useQuery({
       queryKey: ['selected', 'track', 'tracks'],
       queryFn: ({ signal }) =>
         fetchTrack({ signal, id: selectedTrack?.track_id }),
@@ -81,7 +83,7 @@ const TrackItem = () => {
                   ></div>
                   <h2 className={`card-title text-white`}>
                     {selectedTrack.track_name}
-                    {selectedTrack.explicit === 0 ? null : (
+                    {selectedTrack.explicit === EXPLICIT_WARNING_THRESHOLD && (
                       <div
                         className='tooltip'
                         data-tip='Language warning'
@@ -97,7 +99,7 @@ const TrackItem = () => {
                     <div>
                       {selectedTrack?.primary_genres?.music_genre_list
                         ?.length >= 1 && (
-                        <div className='badge gap-2 badge-ghost mr-2'>
+                        <div className='badge gap-2 h-auto py-2 badge-ghost mr-2'>
                           <BsMusicNote />
                           {
                             selectedTrack.primary_genres?.music_genre_list[0]
@@ -106,12 +108,12 @@ const TrackItem = () => {
                         </div>
                       )}
                     </div>
-                    <div className={`badge badge-neutral gap-2`}>
+                    <div className={`badge badge-neutral gap-2 h-auto py-2`}>
                       <BsStarFill /> {selectedTrack.track_rating / 10}
                     </div>
                   </div>
                   <div
-                    className={`font-bold badge badge-ghost flex gap-2 items-center justify-start h-auto badge-outline my-2 text-white`}
+                    className={`font-bold badge badge-ghost flex gap-2 h-auto py-2 px-4 items-center justify-start badge-outline my-2 text-white`}
                   >
                     <BsDiscFill /> {selectedTrack.album_name}
                   </div>
