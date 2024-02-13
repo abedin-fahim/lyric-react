@@ -6,6 +6,8 @@ export const AppProvider = (props) => {
   const [trackList, setTrackList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState({});
   const [heading, setHeading] = useState('Top 12 tracks in the US');
+  const [searchInput, setSearchInput] = useState('Your search results');
+  const [searchResults, setSearchResult] = useState([]);
 
   const trackListHandler = (tracks) => {
     setTrackList(tracks);
@@ -15,6 +17,12 @@ export const AppProvider = (props) => {
   };
   const selectedTrackHandler = (track) => {
     setSelectedTrack(track);
+  };
+  const searchInputHandler = (inputTitle) => {
+    setSearchInput(inputTitle);
+  };
+  const searchResultsHandler = (searchResults) => {
+    setSearchResult(searchResults);
   };
 
   return (
@@ -26,6 +34,10 @@ export const AppProvider = (props) => {
         selectedTrackHandler,
         heading,
         headingHandler,
+        searchInput,
+        searchInputHandler,
+        searchResults,
+        searchResultsHandler,
       }}
     >
       {props.children}
