@@ -6,7 +6,7 @@ export const AppProvider = (props) => {
   const [trackList, setTrackList] = useState([]);
   const [selectedTrack, setSelectedTrack] = useState({});
   const [heading, setHeading] = useState('Top 12 tracks in the US');
-  const [searchInput, setSearchInput] = useState('Your search results');
+  const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResult] = useState([]);
 
   const trackListHandler = (tracks) => {

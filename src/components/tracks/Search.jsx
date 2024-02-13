@@ -1,7 +1,31 @@
+import { useEffect, useRef, useState } from 'react';
 import { useGlobalContext } from '../../store/context';
+import SearchResult from './SearchResult';
+import { useQuery } from '@tanstack/react-query';
 
 const Search = () => {
-  const { searchInput, searchInputHandler } = useGlobalContext();
+  const searchRef = useRef();
+  const { searchInput, searchInputHandler, searchResultsHandler } =
+    useGlobalContext();
+  const [isSearching, setIsSearching] = useState(false);
+
+  const fetchSearchingTracks = () => {
+    const [data, isLoading, isError, error] = useQuery({
+      queryKey: ['search', 'track', 'tracks'],
+      queryFn: ({ signal }) => {
+        searchTracks({ signal, term: searchInput });
+      },
+    });
+
+    searchResultsHandler(data);
+  };
+
+  const searchSubmitHandler = (e) => {
+    e.preventDefault();
+
+    searchInputHandler(searchRef.current.value);
+    setIsSearching(true);
+  };
 
   return (
     <section className='text-gray-600'>
@@ -16,19 +40,28 @@ const Search = () => {
             haven't heard of them man bun deep.
           </p>
         </div>
-        <div className='flex lg:w-2/4 w-full flex-col mx-auto items-center'>
-          <div className='w-full'>
-            <input
-              type='text'
-              placeholder='Type song title, artist or lyrics'
-              className='input input-bordered w-full rounded-2xl py-4 h-auto'
-            />
+        <form onSubmit={searchSubmitHandler}>
+          <div className='flex lg:w-2/4 w-full flex-col mx-auto items-center'>
+            <div className='w-full'>
+              <input
+                type='text'
+                placeholder='Type song title, artist or lyrics'
+                className='input input-bordered w-full rounded-2xl py-4 h-auto'
+                required
+                ref={searchRef}
+              />
+            </div>
+            <button
+              type='submit'
+              className='btn btn-neutral btn-lg rounded-full mt-4'
+            >
+              Get track lyrics
+            </button>
           </div>
-          <button className='btn btn-neutral btn-lg rounded-full mt-4'>
-            Search
-          </button>
-        </div>
+        </form>
       </div>
+      {isSearching && <SearchResult results={{}} />}
+      {isSearching && data && <SearchResult results={data} />}
     </section>
   );
 };

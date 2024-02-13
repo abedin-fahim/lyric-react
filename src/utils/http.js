@@ -52,3 +52,22 @@ export const fetchTrack = async ({ signal, id }) => {
     );
   }
 };
+
+export const searchTracks = async ({ signal, term }) => {
+  try {
+    const response = await fetch(
+      `/1.1/track.search?q_artist=${term}&page_size=3&page=1&s_track_rating=desc`,
+      {
+        signal,
+      }
+    );
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    return json(
+      { msg: `Sorry, we could not get the song details ${error}` },
+      { status: 500 }
+    );
+  }
+};
