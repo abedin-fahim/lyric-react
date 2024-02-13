@@ -24,7 +24,7 @@ const Tracks = () => {
 
   let { track_list } = tracks.message.body;
   let isLoading =
-    track_list.length === 0 || track_list === undefined ? true : false;
+    track_list?.length === 0 || track_list === undefined ? true : false;
 
   useEffect(() => {
     trackListHandler(track_list);
