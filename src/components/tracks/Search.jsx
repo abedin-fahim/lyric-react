@@ -5,26 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 
 const Search = () => {
   const searchRef = useRef();
-  const { searchInput, searchInputHandler, searchResultsHandler } =
-    useGlobalContext();
   const [isSearching, setIsSearching] = useState(false);
-
-  const fetchSearchingTracks = () => {
-    const [data, isLoading, isError, error] = useQuery({
-      queryKey: ['search', 'track', 'tracks'],
-      queryFn: ({ signal }) => {
-        searchTracks({ signal, term: searchInput });
-      },
-    });
-
-    searchResultsHandler(data);
-  };
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
 
-    searchInputHandler(searchRef.current.value);
     setIsSearching(true);
+    console.log('Called');
   };
 
   return (
@@ -60,8 +47,7 @@ const Search = () => {
           </div>
         </form>
       </div>
-      {isSearching && <SearchResult results={{}} />}
-      {isSearching && data && <SearchResult results={data} />}
+      {isSearching && <SearchResult query={enteredQuery} />}
     </section>
   );
 };
