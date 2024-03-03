@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGlobalContext } from '../../store/context';
 import SearchResult from './SearchResult';
-import { useQuery } from '@tanstack/react-query';
 
 const Search = () => {
   const searchRef = useRef();
+  // Can make this state global, might come back to this later
+  const [enteredQuery, setEnteredQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
+    // console.log(searchRef.current.value);
 
+    setEnteredQuery(searchRef.current.value);
     setIsSearching(true);
-    console.log('Called');
   };
 
   return (
