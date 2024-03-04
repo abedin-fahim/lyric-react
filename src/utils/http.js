@@ -58,11 +58,11 @@ export const searchTracks = async ({ signal, term }) => {
     // Add pagination
     // Make multiple request and combine the response
     const response = await fetch(
-      `/1.1/track.search?q_track=${term}&page_size=9&page=1&s_track_rating=desc&apikey=${API_KEY}`,
+      `/1.1/track.search?q=${term}&page_size=3&page=1&s_track_rating=desc&apikey=${API_KEY}`,
       { signal }
     );
-    const data = await response();
-    console.log(data);
+    const data = await response.json();
+    // console.log(data.message.body.track_list);
     return data.message.body.track_list;
   } catch (error) {
     return json(

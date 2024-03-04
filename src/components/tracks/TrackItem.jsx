@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import Spinner from '../UI/Spinner';
 import { useGlobalContext } from '../../store/context';
 import { getColor, generateColor } from '../../utils/generateColors';
 import { fetchTrack } from '../../utils/http';
@@ -69,7 +68,9 @@ const TrackItem = () => {
 
   return (
     <>
-      {isNavigating && <Spinner />}
+      {isNavigating && (
+        <span className='loading loading-spinner loading-lg'></span>
+      )}
       <div className='flex flex-row gap-16'>
         <div className='basis-1/3'>
           {selectedTrack && (

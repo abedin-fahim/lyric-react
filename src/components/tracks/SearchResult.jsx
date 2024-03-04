@@ -1,34 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { searchTracks } from '../../utils/http.js';
-import Spinner from '../UI/Spinner';
 
 const SearchResult = ({ query }) => {
-  // const results = false;
-  // const { searchInput, searchInputHandler, searchResultsHandler } =
-  //   useGlobalContext();
-  // const [isSearching, setIsSearching] = useState(false);
-
-  // const fetchSearchingTracks = () => {
-  //   const { data, isLoading, isError, error } = useQuery({
-  //     queryKey: ['search', 'track', 'tracks'],
-  //     queryFn: ({ signal }) => {
-  //       searchTracks({ signal, term: searchInput });
-  //     },
-  //   });
-  //   console.log('Fetching');
-  //   searchResultsHandler(data);
-  // };
-
-  // const searchSubmitHandler = (e) => {
-  //   e.preventDefault();
-
-  //   fetchSearchingTracks();
-  //   console.log('Called');
-
-  //   searchInputHandler(searchRef.current.value);
-  //   setIsSearching(true);
-  // };
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['search', 'track', 'tracks'],
     queryFn: ({ signal }) => searchTracks({ signal, term: query }),
@@ -36,6 +9,7 @@ const SearchResult = ({ query }) => {
 
   if (!isLoading && data) {
     console.log(data);
+    console.log(data[0].track.track_id);
   }
 
   return (
@@ -49,7 +23,13 @@ const SearchResult = ({ query }) => {
           {isLoading && (
             <span className='loading loading-ring loading-lg'></span>
           )}
-          {!isLoading && data && <p>Somewhat working!</p>}
+          {!isLoading && data && (
+            <>
+              {data.map((track) => (
+                <li key={track.track.track_id}>{track.track.track_name}</li>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </section>

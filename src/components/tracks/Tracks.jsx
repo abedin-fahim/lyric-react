@@ -32,7 +32,6 @@ const Tracks = () => {
 
   return (
     <>
-      {isNavigating && <Spinner />}
       {isLoading ? (
         <Spinner />
       ) : (
