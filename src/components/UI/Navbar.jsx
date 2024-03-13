@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className='navbar bg-base-100 border-b mb-8'>
+    <div className='navbar border-b mb-8'>
       <div className='flex-1'>
         <Link
           to='/'

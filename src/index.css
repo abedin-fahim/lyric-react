@@ -12,6 +12,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-weight: normal;
   font-style: normal;
+  background-color: #17232a;
+  color: #fff;
 }
 img {
   max-width: 100%;
@@ -70,7 +72,7 @@ h4,
 h5,
 h6 {
   font-weight: normal;
-  color: #313131;
+  color: #e4e4e4;
   margin-top: 0px;
   font-style: normal;
   font-weight: 400;

@@ -4,12 +4,14 @@ import { fetchTracks } from '../utils/http';
 
 import Tracks from '../components/tracks/Tracks';
 import Search from '../components/tracks/Search';
+import Hero from '../components/Hero/Hero';
 
 const HomePage = () => {
   const { heading } = useGlobalContext();
 
   return (
     <div className='container mx-auto'>
+      <Hero />
       <div className='rounded-xl py-12 mb-4'>
         <Search />
       </div>
