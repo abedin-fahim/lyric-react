@@ -34,6 +34,8 @@ const TrackItem = () => {
   const lyric = track.message.body.lyrics.lyrics_body.split('...');
   const updatedLyric = lyric[0].split('\n').filter((line) => line !== '');
 
+  console.log(track);
+
   let isNavigating = state === 'loading' ? true : false;
 
   useEffect(() => {

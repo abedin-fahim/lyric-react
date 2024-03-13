@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { searchTracks } from '../../utils/http.js';
+import TrackUI from '../UI/TrackUI.jsx';
 
 const SearchResult = ({ query }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -24,11 +25,15 @@ const SearchResult = ({ query }) => {
             <span className='loading loading-ring loading-lg'></span>
           )}
           {!isLoading && data && (
-            <>
-              {data.map((track) => (
-                <li key={track.track.track_id}>{track.track.track_name}</li>
-              ))}
-            </>
+            <div className='container mx-auto'>
+              <div className='flex flex-wrap gap-8 items-center justify-center mb-16 gap-y-6'>
+                {data.map((track) => (
+                  <li key={track.track.track_id}>
+                    <TrackUI item={track} />
+                  </li>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       </div>
