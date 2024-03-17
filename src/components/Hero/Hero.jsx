@@ -1,9 +1,10 @@
 import Styles from './Hero.module.css';
 import { LuSearchCheck } from 'react-icons/lu';
+import Trending from './Trending';
 
 const Hero = () => {
   return (
-    <div className='grid grid-cols-3 gap-4'>
+    <div className='grid grid-cols-3 gap-6'>
       <div
         className={`${Styles['hero-container']} col-span-2 p-5 rounded-3xl bg-[#649faf] flex align-middle justify-center flex-col gap-y-6`}
       >
@@ -27,7 +28,10 @@ const Hero = () => {
           </label>
         </div>
       </div>
-      <div></div>
+      <div className='grid grid-cols-1 bg-white'>
+        <h3 className='text-2xl font-normal'>Trending today</h3>
+        <Trending />
+      </div>
     </div>
   );
 };

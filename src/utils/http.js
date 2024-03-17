@@ -2,10 +2,10 @@ import { json } from 'react-router-dom';
 
 let API_KEY = import.meta.env.VITE_LYRIC_API_KEY;
 
-export const fetchTracks = async ({ signal }) => {
+export const fetchTracks = async ({ signal, page = 1, limit = 12 }) => {
   try {
     const response = await fetch(
-      `/1.1/chart.tracks.get?chart_name=top&page=1&page_size=12&country=us&f_has_lyrics=1&apikey=${API_KEY}`,
+      `/1.1/chart.tracks.get?chart_name=top&page=${page}&page_size=${limit}&country=us&f_has_lyrics=1&apikey=${API_KEY}`,
       {
         signal,
       }

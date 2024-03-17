@@ -18,6 +18,8 @@
   font-size: 36px;
 }
 .hero-input {
+  position: relative;
+  z-index: 9999;
   color: white;
   font-size: 16px;
   font-weight: 600;
