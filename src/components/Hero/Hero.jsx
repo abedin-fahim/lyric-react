@@ -28,8 +28,8 @@ const Hero = () => {
           </label>
         </div>
       </div>
-      <div className='grid grid-cols-1 bg-white'>
-        <h3 className='text-2xl font-normal'>Trending today</h3>
+      <div className='flex flex-col items-start'>
+        <h3 className='text-2xl font-normal mb-4'>Trending today</h3>
         <Trending />
       </div>
     </div>
